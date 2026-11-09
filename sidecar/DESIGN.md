@@ -112,10 +112,10 @@ Dependencies point one way: `Plotter` and `ExperimentManager` use the algorithm 
 ```
 sorting_and_searching/
   README.md             what this is, in 10 lines, with links
-  DESIGN.md             this file
   PROVENANCE.md         what code or ideas came from where
   BIG_O.md              Big O explained, and how our graphs match it
   sidecar/              the build record, kept apart from the product (see sidecar/README.md)
+    DESIGN.md           this file
     prompts/            every prompt Flo sent Anna, numbered; finished ones move to completed/
     reports/            Anna's report for each prompt, same number
     questions/          open questions that need a decision

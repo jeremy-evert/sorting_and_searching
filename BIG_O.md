@@ -19,7 +19,7 @@ Our biggest two sizes are 320 and 640, exactly double. So **comparisons at 640 d
 
 ## What we count, and why not seconds
 
-The code counts comparisons, moves and probes, not seconds. Counts are exact and the same on every machine, and a clock is not. See [`DESIGN.md`](DESIGN.md). The tables below use **comparisons** for sorting and **probes** (elements looked at) for searching. Every number is an average over repeated runs with fixed seeds, produced by `scripts/run_experiment.py`.
+The code counts comparisons, moves and probes, not seconds. Counts are exact and the same on every machine, and a clock is not. See [`sidecar/DESIGN.md`](sidecar/DESIGN.md). The tables below use **comparisons** for sorting and **probes** (elements looked at) for searching. Every number is an average over repeated runs with fixed seeds, produced by `scripts/run_experiment.py`.
 
 ## Sorting: prediction vs measurement
 
@@ -48,7 +48,7 @@ The "agrees" column is "yes" when the measured ratio is within 5% of the predict
 ### Where measurement and prediction differ, or look like they might
 
 - **Insertion sort on sorted input is linear, not squared.** Each new item is compared once with its left neighbour, finds it is already in place, and stops. n - 1 comparisons: 319 at size 320, 639 at size 640, ratio 2.00. On random and reversed input it must slide items a long way, so it is n^2 there. Same algorithm, different input, different growth.
-- **Quick sort on sorted (and reversed) input is n^2, not n log n.** Our quick sort always picks the **first** item as the pivot. On sorted input the first item is the smallest, so the "split" puts nothing on one side and everything else on the other, every time. The list shrinks by one per round instead of in half. That gives n(n-1)/2 comparisons, exactly the same as bubble sort: 204480 at size 640. This is deliberate; see `DESIGN.md`.
+- **Quick sort on sorted (and reversed) input is n^2, not n log n.** Our quick sort always picks the **first** item as the pivot. On sorted input the first item is the smallest, so the "split" puts nothing on one side and everything else on the other, every time. The list shrinks by one per round instead of in half. That gives n(n-1)/2 comparisons, exactly the same as bubble sort: 204480 at size 640. This is deliberate; see `sidecar/DESIGN.md`.
 - **Quick sort on random input is flagged "NO" (ratio 2.40 vs 2.24).** It is still clearly n log n, not n^2 (that would be 4.0). The extra comes from two things: the ratio of a "n log n plus a smaller linear term" curve is not exactly 2.24 at small sizes, and each point is only an average of 5 random lists, so a few unlucky pivots move it. We did not smooth this away.
 - **Merge sort's ratio is slightly above 2.** Doubling the list doubles the items to merge, and also adds one more level of splitting, so the ratio lands a bit over 2 (2.23 to 2.29 here, against the predicted 2.24). That "a little over 2" is what n log n looks like.
 - **Bubble and selection sort do the same number of comparisons on every input.** Neither stops early, so sorted, reversed and random lists all cost n(n-1)/2 comparisons (204480 at size 640). Selection sort still makes far fewer *moves*; this table counts only comparisons.

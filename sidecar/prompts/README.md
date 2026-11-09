@@ -14,7 +14,7 @@ sidecar/reports/NN_slug_report.md   what Anna did, what she ran, what she could 
 Anna cannot lean over and ask a question, so each prompt answers the questions up front.
 
 1. **Where.** The repo, the branch name, and the folder to work in.
-2. **Why.** What this step is for and how it fits the whole (`DESIGN.md`).
+2. **Why.** What this step is for and how it fits the whole (`sidecar/DESIGN.md`).
 3. **What to build.** Specific files and classes.
 4. **Constraints.** What not to do: no globals, no new dependencies, no pushing to `main`.
 5. **Acceptance test.** A check that can fail, such as "`pytest` passes and the hand-worked counts match." If Anna can't say whether she passed, the prompt wasn't finished.

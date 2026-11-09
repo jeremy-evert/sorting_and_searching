@@ -2,10 +2,14 @@
 """Build all comparison plots from sorting and searching CSV results."""
 
 import argparse
+import sys
 from pathlib import Path
 
-from sortsearch.plotter import Plotter
-from sortsearch.results_io import read_search_rows, read_sort_rows
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "src"))
+
+from sortsearch.plotter import Plotter  # noqa: E402
+from sortsearch.results_io import read_search_rows, read_sort_rows  # noqa: E402
 
 
 def main():

@@ -3,7 +3,7 @@
 Instructions for any coding agent (or person) working in this repository. Short on purpose. This repo is a showcase, so these rules are also teaching: they are the working habits that made the build go smoothly.
 
 ## What this repo is
-A sorting and searching comparison written as clean object-oriented Python, plus a public record of how it was built. Read `DESIGN.md` first; it is the plan. Then `sidecar/README.md`.
+A sorting and searching comparison written as clean object-oriented Python, plus a public record of how it was built. Read `sidecar/DESIGN.md` first; it is the plan. Then `sidecar/README.md`.
 
 ## Git is the safety belt. Use it, don't ask about it.
 Everything here is under version control and pushed to GitHub, so almost any mistake can be undone. That is the reason to work freely inside the rules below.
@@ -15,15 +15,15 @@ Everything here is under version control and pushed to GitHub, so almost any mis
 - **Never leave the tree dirty.** Finish with `git status --short` empty and your branch pushed. If something unrelated was already dirty, say so in your report and leave it alone.
 
 ## Questions: ask few, ask once, and only the ones a person must answer
-- If the repo, the prompt, or `DESIGN.md` answers it, don't ask. Read them again.
+- If the repo, the prompt, or `sidecar/DESIGN.md` answers it, don't ask. Read them again.
 - If a choice is ordinary and reversible (a name, a file layout, which of two reasonable ways), choose, write the choice in your report, and keep going.
 - If you hit a real boundary (a permission, a rule, a tool that refuses), **stop and say what you needed and why.** Don't look for a side door around it, and don't re-ask the same thing reworded. A refusal with a stated reason is information.
 - Put anything that needs a person's decision in `sidecar/questions/`, not in a long chat.
 
 ## How the repo is organized
-- Outside `sidecar/` is the product: `src/`, `tests/`, `scripts/`, `docs/`, `results/`, `DESIGN.md`. It should read as if it were simply well made. No process narration in code or docstrings.
-- Inside `sidecar/` is how it was made: `prompts/NN_slug.md` (the work order) and `reports/NN_slug_report.md` (what came back), always matched by number and slug. Finished prompts move to `prompts/completed/`.
-- When the build teaches you something true about the design, update `DESIGN.md` and say so in your report. The report is provenance; `DESIGN.md` is truth.
+- Outside `sidecar/` is the product: `src/`, `tests/`, `scripts/`, `docs/`, `results/`. It should read as if it were simply well made. No process narration in code or docstrings.
+- Inside `sidecar/` is how it was made: `DESIGN.md` (the plan and design, read it first), `prompts/NN_slug.md` (the work order) and `reports/NN_slug_report.md` (what came back), always matched by number and slug. Finished prompts move to `prompts/completed/`.
+- When the build teaches you something true about the design, update `sidecar/DESIGN.md` and say so in your report. The report is provenance; `sidecar/DESIGN.md` is truth.
 - Borrowed code goes in `PROVENANCE.md`: what, from where, what you changed.
 
 ## Code rules
@@ -49,6 +49,6 @@ Every prompt gets a report: files changed, commands run and their output, which 
 Anything pushed is visible at once and may be copied or cached even if deleted. Never commit secrets, tokens, keys, student data, personal paths, hostnames or private-repo content. If you think you committed something you shouldn't have, say so right away; don't try to quietly rewrite history.
 
 ## Starting a session (checklist)
-1. `git status --short --branch`; fetch; read `DESIGN.md`, this file, and the prompt you were given.
+1. `git status --short --branch`; fetch; read `sidecar/DESIGN.md`, this file, and the prompt you were given.
 2. Work on your own branch in a clean worktree.
 3. Before you finish: tests run, `git diff --check` clean, report written, branch pushed, tree clean.

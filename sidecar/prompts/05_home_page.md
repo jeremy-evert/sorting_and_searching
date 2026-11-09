@@ -4,7 +4,7 @@
 **Follows:** `01` to `04` (all merged to `main`: classes, results CSVs, 19 plots in `docs/plots/`, `BIG_O.md`).
 
 ## Where
-Repo `sorting_and_searching`. Branch `anna/05-home-page` off `origin/main`. Fresh worktree. Read `DESIGN.md` ("Home page"), `BIG_O.md` and `AGENTS.md` first.
+Repo `sorting_and_searching`. Branch `anna/05-home-page` off `origin/main`. Fresh worktree. Read `sidecar/DESIGN.md` ("Home page"), `BIG_O.md` and `AGENTS.md` first.
 
 ## Why
 This is what a visitor sees first. It has two jobs in the order a newcomer needs them: show the result (the picture says bubble sort bends upward and merge sort doesn't), then show the design that produced it (the classes, and how one agent directed another). If a visitor reads only the first screen, they should already understand the point.

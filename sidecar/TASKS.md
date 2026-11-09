@@ -8,14 +8,7 @@ What is still open. One line per task, with where it came from. When a task is d
 
 ## `DESIGN.md` updates
 
-`DESIGN.md` is the truth, so these facts from the reports belong in it. Prompt 06 only lists out-of-date lines and does not rewrite the design, so these need their own step.
-
-- [ ] State the counting conventions: a move is one write and a swap is 2; insertion counts each shift and the placement; merge counts values written while merging (reports 01).
-- [ ] Say depth starts at 1 and calls on empty ranges are not counted (01).
-- [ ] Add `recursive_searcher.py` to the folder layout (01).
-- [ ] Describe how search targets are chosen: even-valued list, present targets from a seeded RNG, absent targets odd (02).
-- [ ] Say `max_depth` in a sort row is the maximum over trials, not an average (02).
-- [ ] Fix the search table: linear search averages 3n/4 on the mixed workload, not n/2 (04).
+The counting, depth, layout, target selection, aggregation and search workload updates are recorded in `DESIGN.md`. Recursive binary search counts empty-range calls; see the prompt 06 report for the discrepancy.
 
 ## Checks not yet done
 

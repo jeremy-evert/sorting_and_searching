@@ -6,8 +6,8 @@ from sortsearch.sorters.recursive import RecursiveSorter
 class MergeSort(RecursiveSorter):
     """Merge sort: always about n log n, and recursion depth about log n.
 
-    Moves count each value written while merging (the final copy back into
-    the list included).
+    Moves count each value written while merging; the final copy back into
+    the input copy is not counted again.
     """
 
     name = "merge"

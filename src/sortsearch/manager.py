@@ -14,7 +14,7 @@ SEARCH_TARGETS = 200
 
 @dataclass
 class SortRow:
-    """Averaged sorting counts for one kind, algorithm and size."""
+    """Average comparisons and moves, and maximum depth, over the trials."""
 
     kind: str
     algorithm: str
@@ -73,7 +73,7 @@ class ExperimentManager:
         return rows
 
     def _measure_sorter(self, kind, sorter, size):
-        """Average one sorter's counts over the trials. Trial t uses seed size*1000+t."""
+        """Measure one sorter; trial t uses seed size*1000+t."""
         total_comparisons = 0
         total_moves = 0
         deepest = 0

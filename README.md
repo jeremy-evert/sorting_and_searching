@@ -14,6 +14,6 @@ pip install -e '.[test]'
 pytest
 ```
 
-Status: design done; build in progress (see `sidecar/`).
+Status: design, core classes, experiment manager and results done; plots, Big O write-up and home page in progress (see `sidecar/`).
 
 License: BSD 2-Clause.

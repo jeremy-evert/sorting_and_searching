@@ -13,6 +13,7 @@ Update it when a prompt finishes: add a row, move any gap you closed out of "Sti
 | 03 | `plotter` | `Plotter`, `results_io.py`, `make_plots.py`, 19 plots | plots generated from the real CSVs; four inspected by eye | merged |
 | 04 | `big_o` | `BIG_O.md`, `check_big_o.py` | tables recomputed from the CSVs; a changed number makes the check fail | merged |
 | 05 | `home_page` | `docs/index.html`, `check_site.py`, `report/report.tex`, `docs/report.pdf` | link and section check; screenshots at 400 and 1200 px in `runs/` | merged |
+| 06_a | `design_to_sidecar` | `DESIGN.md` moved into `sidecar/`, `LEDGER.md` and `TASKS.md` added | `82 passed`; `check_site.py` exits 0; `main` equals `origin/main` | merged |
 | 06 | `clarity_pass` | read-through for names, docstrings, dead code | none yet | open |
 
 ## What mattered

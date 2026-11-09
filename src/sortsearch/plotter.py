@@ -111,7 +111,7 @@ class Plotter:
         for algorithm in SORT_ORDER:
             rows = sorted(rows_by_algorithm.get(algorithm, []), key=lambda row: row.size)
             if rows:
-            axis.plot([row.size for row in rows],
+                axis.plot([row.size for row in rows],
                           [row.avg_comparisons for row in rows],
                           marker=SORT_MARKERS[algorithm],
                           markerfacecolor=("white" if algorithm == "bubble" else None),

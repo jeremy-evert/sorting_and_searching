@@ -15,6 +15,7 @@ Update it when a prompt finishes: add a row. Open work is in [`TASKS.md`](TASKS.
 | 05 | `home_page` | `docs/index.html`, `check_site.py`, `report/report.tex`, `docs/report.pdf` | link and section check; screenshots at 400 and 1200 px in `runs/` | merged |
 | 06_a | `design_to_sidecar` | `DESIGN.md` moved into `sidecar/`, `LEDGER.md` and `TASKS.md` added | `82 passed`; `check_site.py` exits 0; `main` equals `origin/main` | merged |
 | 06 | `clarity_pass` | read-through for names, docstrings, dead code | none yet | open |
+| 08 | `repo_grievances` | candid review in `SINS.md` | observations and unverified concerns labeled in the document | awaiting review |
 
 ## What mattered
 

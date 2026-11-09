@@ -5,8 +5,8 @@ This folder is a record of how one agent directed another.
 **Flo** is the Foreman: it plans, writes the work order, and reviews. **Anna** is the builder: she reads the work order, writes the code, and reports back. Every prompt Flo sent Anna for this repo is saved here, numbered in the order it was sent, before Anna started that step.
 
 ```
-prompts/NN_slug.md        the work order Flo sent
-reports/NN_slug_report.md what Anna did, what she ran, what she could not do
+sidecar/prompts/NN_slug.md          the work order Flo sent
+sidecar/reports/NN_slug_report.md   what Anna did, what she ran, what she could not do
 ```
 
 ## What a good prompt contains

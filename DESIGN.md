@@ -115,8 +115,11 @@ sorting_and_searching/
   DESIGN.md             this file
   PROVENANCE.md         what code or ideas came from where
   BIG_O.md              Big O explained, and how our graphs match it
-  prompts/              every prompt Flo sent Anna, in order (see prompts/README.md)
-  reports/              Anna's report for each prompt
+  sidecar/              the build record, kept apart from the product (see sidecar/README.md)
+    prompts/            every prompt Flo sent Anna, numbered; finished ones move to completed/
+    reports/            Anna's report for each prompt, same number
+    questions/          open questions that need a decision
+    runs/               raw output from experiment and test runs
   src/sortsearch/
     __init__.py
     counter.py
@@ -161,7 +164,7 @@ For each curve, the plot overlays the predicted shape scaled by one constant (fi
 
 ## The second lesson: how one agent prompts another
 
-This repo's `prompts/` folder is part of the display. Flo (the Foreman) wrote each prompt to Anna (the builder) before she built each piece, and Anna's `reports/` entry says what she did. A reader can follow the build from the first prompt to the finished site. Each prompt states **why** the work matters, the **constraints**, and a **falsifiable acceptance test**, because an agent can't ask a hallway question.
+This repo's `sidecar/` folder is part of the display. Flo (the Foreman) wrote each prompt to Anna (the builder) before she built each piece, and Anna's `reports/` entry says what she did. A reader can follow the build from the first prompt to the finished site. Each prompt states **why** the work matters, the **constraints**, and a **falsifiable acceptance test**, because an agent can't ask a hallway question.
 
 ## Build order (each step is its own prompt, its own branch, its own report)
 

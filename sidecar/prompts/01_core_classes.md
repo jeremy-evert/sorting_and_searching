@@ -32,4 +32,4 @@ All of these must be true, and your report must show the output:
 6. `git status --short` is clean after your final commit, and the branch is pushed.
 
 ## Report
-Write `reports/01_core_classes_report.md` and commit it on the same branch. Include: files created, commands run with results, anything borrowed, anything you did not finish or were unsure about, the final commit hash, and what you would change in `DESIGN.md` now that you have built from it. Honesty about gaps is worth more than a tidy report.
+Write `sidecar/reports/01_core_classes_report.md` and commit it on the same branch. Include: files created, commands run with results, anything borrowed, anything you did not finish or were unsure about, the final commit hash, and what you would change in `DESIGN.md` now that you have built from it. Honesty about gaps is worth more than a tidy report.

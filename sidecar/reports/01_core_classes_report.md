@@ -46,3 +46,6 @@ Nothing. Written from scratch from `DESIGN.md`; I did not open the other reposit
 - Add `recursive_searcher.py` to the folder layout (it is a separate file, one class per file).
 
 Code commit before this report: `33db462`.
+
+## Update (after Flo's sidecar move)
+Merged `origin/main` (sidecar move, `3b532e7`/`648132a`) into this branch and moved this report to `sidecar/reports/`. Per Jeremy, polish is skipped; the gaps above are the plain list.

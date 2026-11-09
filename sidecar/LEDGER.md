@@ -2,7 +2,7 @@
 
 One page that says what each prompt produced, what turned out to matter, and what is still owed. It is a map into `prompts/completed/` and `reports/`, not a replacement for them. The report is the evidence; `DESIGN.md` is the truth; this page is how you find your way between them.
 
-Update it when a prompt finishes: add a row, move any gap you closed out of "Still owed".
+Update it when a prompt finishes: add a row. Open work is in [`TASKS.md`](TASKS.md), not here.
 
 ## What was done
 
@@ -35,7 +35,3 @@ These are the choices and findings that changed the design or the numbers. Each 
 - One branch, one worktree, one report per prompt; the reviewer merges.
 - A fresh clone to run the tests, so a missing file or path cannot hide (01, 03).
 - Stage files by name, so scratch output does not get committed.
-
-## Still owed
-
-Open work is tracked in [`TASKS.md`](TASKS.md): prompts, `DESIGN.md` updates, checks not done, and decisions for a person.

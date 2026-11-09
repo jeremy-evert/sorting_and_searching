@@ -1,0 +1,382 @@
+﻿===== sidecar/TASKS.md =====
+# Tasks
+
+What is still open. One line per task, with where it came from. When a task is done, delete its line and note the commit in the report for the prompt that did it; the ledger (`LEDGER.md`) keeps the history, this file keeps only what is pending.
+
+## Prompts
+
+- [ ] **06 clarity pass**: names, docstrings, dead code (`prompts/06_clarity_pass.md`).
+
+## `DESIGN.md` updates
+
+The counting, depth, layout, target selection, aggregation and search workload updates are recorded in `DESIGN.md`. Recursive binary search counts empty-range calls; see the prompt 06 report for the discrepancy.
+
+## Checks not yet done
+
+- [ ] Run the tests on Python 3.9 (only 3.12 has been run).
+- [ ] Machine-check numbers quoted in prose in `BIG_O.md`, the home page and `report.pdf` (only tables are checked) (04, 05).
+- [ ] Proof-read `docs/report.pdf` (05).
+- [ ] Test the quick-sort-on-random explanation with more than five trials (04).
+
+## Decisions for a person
+
+- [ ] Enable GitHub Pages on `/docs`; the README link returns 404 until then.
+- [ ] Track `sidecar/runs/02_run.log`? `.gitignore` ignores `*.log` (02).
+- [ ] Set a rounding rule for CSV averages, currently raw floats (02).
+- [ ] Bubble and selection coincide on combined plots, as do the two binary searches: keep, or draw them apart? (03, 05)
+- [ ] Phone view: the class diagram scrolls sideways inside its box; accept or redraw (05).
+- [ ] Delete the merged remote branches (`anna/*`, `hanna/03-plotter`, `claude/06-design-to-sidecar`).
+
+## 2026-11-09 class notes and review (prompt 07, Anna)
+
+Added beneath the existing sections; nothing above was rewritten. Items are phrased as design or process improvements. Each says what, why and which file. `[class]` came from how the Week 13 session went (de-identified); `[review]` came from reading the repo. Size: S under an hour, M a prompt's worth, L more. None are implemented.
+
+### Stale lines to delete (this file's own rule: a done task loses its line)
+
+- [ ] **[review] S** Delete "Enable GitHub Pages on `/docs`" under *Decisions for a person*. Why: the Pages API reports the site built at the published URL. File: `sidecar/TASKS.md`.
+- [ ] **[review] S** Delete "Run the tests on Python 3.9" under *Checks not yet done*. Why: the lead Foreman reports 82 passed on 3.9 and 3.11. I could not re-run it (no 3.9 on the machine used for this review), so the CI item below is what makes the claim checkable by anyone. File: `sidecar/TASKS.md`.
+
+### Tests and automation
+
+- [ ] **[review] S** `tests/test_plotter.py` imports `sortsearch.plotter`, which imports `matplotlib` at module level, so collection errors on an install without it. Add `pytest.importorskip("matplotlib")` above the plotter import so the rest of the suite still runs. Why: `pip install -e .` without the `test` extra should not fail collection. File: `tests/test_plotter.py`.
+- [ ] **[review] M** Add a GitHub Actions workflow that runs `pytest` on Python 3.9 and 3.11 (install with the `test` extra). Why: a visitor sees a green badge, and the "say tests pass only if you ran them" rule in `AGENTS.md` becomes something the repo shows. Add the badge to the README. Files: `.github/workflows/tests.yml`, `README.md`.
+- [ ] **[review] M** One command that regenerates `results/*.csv` and `docs/plots/*.png` (a `scripts/regenerate.py` or `Makefile` target), plus a test that a fresh run of the experiment matches the committed CSVs. Why: the CSV is already hash-checked by hand (report 02); this makes it a test, and gives students "run it yourself" in one line. Files: `scripts/` (new), `tests/test_results_reproducible.py` (new), `README.md`.
+- [ ] **[review] S** Machine-check the home page and `docs/report.pdf` prose numbers, not only tables (existing item) and add the 3n/4 claim to that check. File: `scripts/check_site.py`.
+
+### Public safety (before the showcase)
+
+- [ ] **[review] M** Sweep the whole git history, not only the current tree, for home paths, hostnames, tokens, email addresses and personal names. Current tree: a search for home paths, mount points, tokens and addresses found nothing. History: some commit author lines carry a machine name and an institutional email address. Rewriting published history is not routine, so this is a question for a person: see `sidecar/questions/07_history_identity.md`. Files: none until decided.
+- [ ] **[review] S** Run the same sweep over the committed PDFs and images (metadata, EXIF, embedded paths). File: `docs/report.pdf`, `Deciding_with_AI_Field_Guide_print.pdf`, `docs/plots/`.
+- [ ] **[review] S** `docs/report.pdf` has a blank Author and Title in its metadata even though `report/report.tex` sets `\author`. Set `\title` and `\author` metadata (for example `hyperref` `pdfauthor`) and rebuild. Files: `report/report.tex`, `docs/report.pdf`.
+
+### Repo layout and README
+
+- [ ] **[review] S** The README status line ("plots, Big O write-up and home page in progress") is stale; the ledger shows all of it merged. Replace it with a one-line current status that points to `sidecar/LEDGER.md` and the published page, and drop "The home page and Big O write-up are built in later steps." File: `README.md`.
+- [ ] **[review] S** Decide what lives at the repo root. Today: `Deciding_with_AI_Field_Guide_print.pdf`, `BIG_O.md`, `PROVENANCE.md`, `report/` (the LaTeX source for `docs/report.pdf`) and `AGENTS.md`. Proposal: move the Field Guide to `docs/` with a versioned filename (`Deciding_with_AI_Field_Guide_v1.0.2.pdf`), link it from the README, and say in `AGENTS.md` which root files are product and which are not. I found no root-level `prompts/` on `origin/main`; prompts live only in `sidecar/prompts/`, so there is nothing to move there. Files: `README.md`, `AGENTS.md`, `docs/`.
+- [ ] **[review] S** `.gitignore` ignores `*.log`, yet an open item asks whether to track `sidecar/runs/02_run.log`. Decide once and close both. File: `.gitignore` or `sidecar/TASKS.md`.
+- [ ] **[review] S** Say what `LEDGER.md` and `TASKS.md` each own in `sidecar/README.md`. `LEDGER.md` already says open work lives in `TASKS.md`; the sidecar README should state it once, in one sentence each, with the rule "history goes in the ledger, only pending work goes in tasks". File: `sidecar/README.md`.
+
+### Field Guide and teaching
+
+- [ ] **[review] M** "Find it in the repo": a table mapping each Field Guide v1.0.2 rule (define done first, run it yourself, keep save points, say how you used it, cross-check with a second AI) to the file or practice that shows it, for example acceptance tests in `sidecar/prompts/`, "Tests that mean something" in `AGENTS.md`, branches and commits in `AGENTS.md`, the report's commands section, and the `check_*.py` scripts. Mark any rule the repo does not yet demonstrate. File: `docs/FIELD_GUIDE_MAP.md` (new), linked from `README.md`.
+- [ ] **[review] M** A "Your turn" prompt that asks a student to add one new sorter (for example shell sort) through the same prompt and report loop: hand-worked expected counts first, tests second, code third, report last. Use it as the template for next week. Files: `sidecar/prompts/07_your_turn_shell_sort.md` (draft), `sidecar/prompts/README.md`.
+- [ ] **[review] S** The searching plot needs a caption that says linear search averages 3n/4 on the mixed workload (half hits, half misses). `BIG_O.md` explains it; the plot and home page do not. Files: `docs/index.html`, `scripts/make_plots.py`.
+- [ ] **[class] S** Add a "Run it yourself" block at the top of the README: install, run the tests, run the experiment, regenerate the plots, in four lines. Why: the design was walked through in class, but the tests and the experiment were not run in the room. File: `README.md`.
+- [ ] **[class] M** Add a short, hand-worked "what is a unit test" example (three lines of code, the expected value worked out in a comment, one failing and one passing run) that a beginner can read before the tests directory. Why: the session mentioned unit tests as an important late step, but they had not been taught earlier in the course. File: `docs/` (new `WHAT_IS_A_TEST.md`), linked from `AGENTS.md` "Tests that mean something".
+- [ ] **[class] S** In `sidecar/README.md`, add two lines on what belongs in a sidecar and what does not, using the DESIGN.md placement decision as the worked example (the design is how it was made, not what is made). Why: the idea was new to the room and clicked only after a concrete example. File: `sidecar/README.md`.
+- [ ] **[class] S** Make the class diagram readable at projector size and on a phone: either split it into "sorters" and "searchers" diagrams or add a one-glance overview above it. Combines with the existing phone-view item. File: `sidecar/DESIGN.md`.
+- [ ] **[class] S** Add the "pre-publish checklist" prompt a student can give an agent about their own project ("what must be true before this goes public"), as `sidecar/prompts/README.md` guidance, with the public-repo rule from `AGENTS.md` as the checklist's first line. Why: next steps for the class are getting their own projects ready to publish. File: `sidecar/prompts/README.md`.
+- [ ] **[class] S** Put the honesty rule where a visitor looks first: one line in the README saying every report lists what it did not finish, with a link to one example. File: `README.md`.
+
+===== sidecar/SINS.md =====
+# Sins: grievances about this repository
+
+A Festivus airing, written on 2026-11-09. These are observations and judgments, not a list of accepted defects. Some repeat `TASKS.md`: they are here because they bother me, not because they have been independently resolved. This is a snapshot, not a verdict on the people or agents who built the work.
+
+## The story we tell
+
+- **The front door is behind the project.** `README.md` says the plots and home page are in progress, although they are present. A showcase should know its own state and give a visitor a direct route to the interesting results and to running the project.
+- **The theory is simplified past the point of being quite true.** `BIG_O.md` says Big O is a statement about a doubling ratio. Big O is an asymptotic upper bound; a measured ratio at two sizes can illustrate a growth pattern, but it cannot establish one. The page also presents the two input-sensitive cases as exceptions, though its predictions already account for them.
+- **We sound more certain about random quicksort than the evidence allows.** `BIG_O.md` says the observed difference comes from two causes, while `TASKS.md` explicitly says the explanation needs more trials. Five trials and two sizes are a thin basis for attributing the discrepancy.
+- **The checkers oversell their reach.** `check_big_o.py` prints that every quoted number matches, but checks the marked tables, not the surrounding prose. `check_site.py` checks structure and local file existence, not whether alt text accurately describes the image, external links work, or the page reads well. Green output can give a stronger impression than the checks deserve.
+- **The build record is harder to trust than it needs to be.** `LEDGER.md` leaves prompt 06 open; its report says FAILED, while its branch was merged. Prompt 07 has a report but remains in the open prompts folder and has no ledger row. The README for the record promises a cleaner trail than a new reader actually finds.
+
+## The pictures
+
+- **The search graph uses the wrong reference for the story we are telling.** `plotter.py` draws `n/2`, while half the searches miss and `BIG_O.md` explains that the mixed workload averages roughly `3n/4`. Without context, the reference invites a reader to infer a discrepancy that the workload itself explains.
+- **Important curves hide each other.** Bubble and selection have the same comparison counts; both binary searches have the same probe counts. The plots use different markers, but the overlapping series still make comparison harder. The project already knows this and has not settled how to present it.
+- **One alt description describes a curve that is not there.** The quicksort image in `docs/index.html` says it includes an `n log n` curve, but `plot_big_o` draws the measured points and one fitted prediction, `n squared` for sorted quicksort. A screen-reader user gets a different picture from a sighted reader.
+- **The class diagram asks a phone reader to pan.** The page sets a 560-pixel minimum width and scrolls the diagram inside a box. It is a lot of detail before a newcomer has a simple map of the system.
+- **Perceived grievance:** the site leads with small side-by-side graphs and a class diagram, but I have not done a fresh visual or accessibility review. I suspect the strongest story could be clearer and more legible, especially on a phone; that needs a real review, not a claim that it fails.
+
+## The evidence and the code
+
+- **Reproducing the whole exhibit is not a single obvious action.** The experiment and plotting scripts exist, but the README does not take a reader through generating both CSVs and images, and there is no automated check that fresh results match the committed ones. The original hash checks are historical evidence, not a continuous guard.
+- **There is no visible automated test matrix.** The project promises Python 3.9 and newer, but there is no committed CI workflow showing supported versions being tested. During this inspection, `python -m pytest -q` produced 74 passed and 8 setup errors because pytest could not create its temporary directory in this environment; that is not evidence of an algorithm failure, nor a full passing run.
+- **The design has drifted from its implementation.** `sidecar/DESIGN.md` gives a different `Plotter` interface from the one in `src/sortsearch/plotter.py` and omits `results_io.py` from its layout. It calls itself the truth, so these mismatches matter.
+- **The counting rules are easy to misunderstand.** Search comparisons count one three-way decision per probe; sort moves exclude merge's final copy back; sorting's final validation is not counted. These are legitimate conventions, but generic labels like â€œcomparisonsâ€ and â€œmovesâ€ can look like counts of every underlying operation. The definitions need to travel with the conclusions.
+- **The sorter checks order, not preservation.** `Sorter.sort` rejects an unsorted output, but a broken child that discards or duplicates values could still return a sorted list. Tests check expected output for actual sorters, so this is a limitation of the base-class guarantee, not proof that a current sorter loses data.
+- **The â€œno globalsâ€ rule and the code do not agree literally.** The manager and plotter have module-level constants. They are configuration and labels rather than mutable experiment state, but the rule should say that if that is what it means.
+- **Perceived grievance:** the inheritance hierarchy may be teaching the requested class structure more than it is simplifying the algorithms. `RecursiveSearcher` and `RecursiveSorter` deserve a beginner-focused review of what each abstraction actually earns; this is a design question, not a demand to flatten them.
+
+## Public polish
+
+- **The published record needs a deliberate privacy review.** `questions/07_history_identity.md` identifies author identity in existing history, and `TASKS.md` records a pending metadata sweep of PDFs and images. The current observation is a known open question, not a claim that every artifact is unsafe. A mailmap can change display; it does not erase historical identities.
+- **The root-level field guide is unexplained at the front door.** `Deciding_with_AI_Field_Guide_print.pdf` is prominent in the file list, but the README does not explain its relationship to this project.
+- **Perceived grievance:** the formal PDF has not been proofread according to `TASKS.md`, and I have not independently read it for this pass. I would not call the final document polished until someone does.
+
+These grievances are not automatically a work order. Verify the perceived ones, choose the fixes that best serve the showcase, and keep the useful history even when it is messy.
+
+===== sidecar/LEDGER.md =====
+# Ledger
+
+One page that says what each prompt produced, what turned out to matter, and what is still owed. It is a map into `prompts/completed/` and `reports/`, not a replacement for them. The report is the evidence; `DESIGN.md` is the truth; this page is how you find your way between them.
+
+Update it when a prompt finishes: add a row. Open work is in [`TASKS.md`](TASKS.md), not here.
+
+## What was done
+
+| # | Prompt | Delivered | Evidence | State |
+|---|--------|-----------|----------|-------|
+| 01 | `core_classes` | `Counter`, `DataSet`, five sorters, three searchers, base classes, tests | 64 tests pass in a fresh clone | merged |
+| 02 | `manager_and_results` | `ExperimentManager`, `run_experiment.py`, two results CSVs | CSV hashes identical across two runs; exact values at n=640 checked against n(n-1)/2 | merged |
+| 03 | `plotter` | `Plotter`, `results_io.py`, `make_plots.py`, 19 plots | plots generated from the real CSVs; four inspected by eye | merged |
+| 04 | `big_o` | `BIG_O.md`, `check_big_o.py` | tables recomputed from the CSVs; a changed number makes the check fail | merged |
+| 05 | `home_page` | `docs/index.html`, `check_site.py`, `report/report.tex`, `docs/report.pdf` | link and section check; screenshots at 400 and 1200 px in `runs/` | merged |
+| 06_a | `design_to_sidecar` | `DESIGN.md` moved into `sidecar/`, `LEDGER.md` and `TASKS.md` added | `82 passed`; `check_site.py` exits 0; `main` equals `origin/main` | merged |
+| 06 | `clarity_pass` | read-through for names, docstrings, dead code | none yet | open |
+| 08 | `repo_grievances` | candid review in `SINS.md` | observations and unverified concerns labeled in the document | awaiting review |
+
+## What mattered
+
+These are the choices and findings that changed the design or the numbers. Each is worth keeping when the code is reworked.
+
+- **Count operations, never seconds.** Every claim in the repo is an exact count from a fixed seed, so any result can be reproduced and any number can be checked. Prompt 02 proved it by hashing the CSVs from two runs.
+- **Hand-worked tests.** The expected values were derived from the algorithm (for example `[3, 1, 2]` gives bubble 3 comparisons and 4 moves) and written as a comment before the assertion. The code matched on the first run, which is the point of doing it that way (01, 02).
+- **Check numbers with a script, not by eye.** `check_big_o.py` fails if a table in `BIG_O.md` drifts from the data; `check_site.py` fails on a broken link or a missing section. Both caught real problems when tested with a deliberately wrong input (04, 05).
+- **Quick sort with a first-element pivot is deliberately quadratic on sorted input.** `max_depth` is exactly 100 for n=100 and the comparisons equal bubble sort's (204480 at n=640). This is the clearest demonstration of why Big O depends on input (01, 04).
+- **Linear search averages 3n/4, not n/2.** Half the lookups hit (about n/2) and half miss (n). The prompt's expectation was wrong and the data corrected it (04).
+- **Binary search sits about 0.45 probes under log2 n** because hits are found before the last halving (04).
+- **Insertion sort on sorted input is linear**, because each insert is one comparison and one move (04).
+- **Honest reporting found things.** The overlapping bubble and selection lines (03, 05), the first screenshots that cut the page off (05), and the prose number written as 2.2 then corrected to the measured 2.31 (04) all came from reports that listed gaps instead of hiding them.
+
+## Working habits that paid off
+
+- Each prompt states why, constraints, and an acceptance test that can fail. Reports answer the acceptance items one by one.
+- One branch, one worktree, one report per prompt; the reviewer merges.
+- A fresh clone to run the tests, so a missing file or path cannot hide (01, 03).
+- Stage files by name, so scratch output does not get committed.
+
+===== sidecar/questions/07_history_identity.md =====
+# Question 07: author identity in git history
+
+**Asked by:** Anna, prompt 07. **Needs:** a person's decision. **Blocking:** nothing; the showcase can proceed either way.
+
+Commit author lines in the public history include a machine name in the author field and an institutional email address on some commits (the rest use GitHub no-reply addresses). The current tree is clean. `AGENTS.md` says never rewrite published history as routine repair, so I have not touched it.
+
+Options:
+1. Leave it. Treat the identities as public already (they are on every clone).
+2. Add a `.mailmap` mapping the old identities to the no-reply identity. It changes how `git log` and GitHub display authors, not the commits.
+3. Rewrite history with a filter tool and force-push. Destroys commit hashes cited in reports; needs Owner approval and every clone re-cloned.
+
+Recommendation: option 2, and set the author identity on the working machines so new commits stop adding it.
+
+===== sidecar/reports/08_repo_grievances_report.md =====
+# Report 08: repository grievances
+
+Created `sidecar/SINS.md`, separating specific findings from concerns that need further review. The list covers the explanation, graphs, site, code, tests, build record, and public polish. Added the matching prompt record.
+
+Commands: `git status --short --branch` showed a clean `main`; `git switch -c codex/08-repo-grievances` succeeded. Inspected the design, sidecar, source, tests, site, checkers and documentation. In the preceding orientation, `python -m pytest -q` returned `74 passed, 8 errors` because pytest could not create its temporary directory; `python scripts/check_big_o.py` and `python scripts/check_site.py` exited successfully. The checks do not establish that prose, accessibility, or the PDF have been fully reviewed.
+
+The requested grievance document is complete. No product behavior was changed. The final commit hash is available from the branch history; it cannot be embedded in the commit it identifies.
+
+COMPLETE
+
+===== sidecar/prompts/README.md =====
+# Prompts
+
+This folder is a record of how one agent directed another.
+
+**Flo** is the Foreman: it plans, writes the work order, and reviews. **Anna** is the builder: she reads the work order, writes the code, and reports back. Every prompt Flo sent Anna for this repo is saved here, numbered in the order it was sent, before Anna started that step.
+
+```
+sidecar/prompts/NN_slug.md          the work order Flo sent
+sidecar/reports/NN_slug_report.md   what Anna did, what she ran, what she could not do
+```
+
+## What a good prompt contains
+
+Anna cannot lean over and ask a question, so each prompt answers the questions up front.
+
+1. **Where.** The repo, the branch name, and the folder to work in.
+2. **Why.** What this step is for and how it fits the whole (`sidecar/DESIGN.md`).
+3. **What to build.** Specific files and classes.
+4. **Constraints.** What not to do: no globals, no new dependencies, no pushing to `main`.
+5. **Acceptance test.** A check that can fail, such as "`pytest` passes and the hand-worked counts match." If Anna can't say whether she passed, the prompt wasn't finished.
+6. **What to report.** Commands run, results, anything skipped, and the final commit.
+
+## How to read it
+
+Read `01` first, then its report, then `02`. Notice what the prompts leave out as well as what they say, and how each report's findings shape the next prompt.
+
+===== sidecar/DESIGN.md =====
+# Design: sorting_and_searching
+
+A small, public codebase that does two jobs at once:
+
+1. **Measure** how sorting and searching algorithms behave as the input grows, and show that the measurements match Big O predictions.
+2. **Demonstrate good code**: well-formed classes, clean inheritance, readable names, one clear design.
+
+It is a display piece. The code is built to be read, so every choice below favors clarity over cleverness.
+
+## What it counts (and why not time)
+
+Algorithms report **operations**, not seconds. A `Counter` object is passed into every algorithm and records:
+
+| field         | meaning                                          |
+|---------------|--------------------------------------------------|
+| `comparisons` | times two values were compared                   |
+| `moves`       | times a value was written to a new position (a swap counts as 2 moves) |
+| `probes`      | times a search looked at one element             |
+| `max_depth`   | deepest recursion reached (0 for non-recursive)  |
+
+Insertion counts every shift and placement as a move; merge counts writes while merging, but not the final copy back. Searchers count one comparison and one probe per element examined. Recursion depth starts at 1. Quick sort skips empty ranges, but merge sort counts its initial call on an empty list and recursive binary search counts calls on empty ranges, including its final miss call.
+
+Counts are exact and repeatable. Timings are noisy and depend on the machine, so they are not used for any claim. Data is generated from fixed seeds, so every run of the experiment gives the same numbers.
+
+No global variables. State lives in objects that are passed in.
+
+## Class map
+
+```mermaid
+classDiagram
+    class DataSet {
+        <<dataclass>>
+        +kind: str
+        +size: int
+        +seed: int
+        +values: list
+        +make(kind, size, seed) DataSet
+    }
+    class Counter {
+        +comparisons
+        +moves
+        +probes
+        +max_depth
+        +reset()
+    }
+    class Sorter {
+        <<abstract>>
+        +name: str
+        +sort(values, counter) list
+        #_sort(items, counter)*
+    }
+    class BubbleSort
+    class InsertionSort
+    class SelectionSort
+    class RecursiveSorter {
+        <<abstract>>
+        #_enter(counter, depth)
+    }
+    class MergeSort
+    class QuickSort
+    class Searcher {
+        <<abstract>>
+        +name: str
+        +search(sorted_values, target, counter) int
+    }
+    class LinearSearch
+    class BinarySearch
+    class RecursiveSearcher {
+        <<abstract>>
+    }
+    class RecursiveBinarySearch
+    class ExperimentManager {
+        +run() ExperimentResult
+    }
+    class Plotter {
+        +plot_sorting(result, path)
+        +plot_searching(result, path)
+    }
+    Sorter <|-- BubbleSort
+    Sorter <|-- InsertionSort
+    Sorter <|-- SelectionSort
+    Sorter <|-- RecursiveSorter
+    RecursiveSorter <|-- MergeSort
+    RecursiveSorter <|-- QuickSort
+    Searcher <|-- LinearSearch
+    Searcher <|-- BinarySearch
+    Searcher <|-- RecursiveSearcher
+    RecursiveSearcher <|-- RecursiveBinarySearch
+    ExperimentManager --> DataSet
+    ExperimentManager --> Sorter
+    ExperimentManager --> Searcher
+    ExperimentManager --> Counter
+    Plotter --> ExperimentManager
+```
+
+### The rules each class follows
+
+- **`DataSet`**: a `dataclass`. Builds `random`, `sorted` and `reversed` lists from a seed. Knows nothing about algorithms.
+- **`Counter`**: a plain class with counters and `reset()`. Knows nothing about algorithms either.
+- **`Sorter`** (abstract): the public method `sort(values, counter)` **copies** the input, calls the subclass's `_sort`, checks the result is sorted, and returns it. The input list is never changed. This is the *template method* pattern: the base class owns the steps that must always happen, the child owns only the algorithm.
+- **`BubbleSort`, `InsertionSort`, `SelectionSort`**: one file and one class each. They differ only in `_sort`.
+- **`RecursiveSorter`** (abstract, child of `Sorter`): adds recursion-depth tracking via `_enter(counter, depth)`. `MergeSort` and `QuickSort` inherit from it, so they are children of a child.
+  - `QuickSort` uses the **first element as the pivot** on purpose, so sorted input is its worst case and the nÂ² curve is visible. A docstring says so.
+- **`Searcher`** (abstract): `search(sorted_values, target, counter)` returns the index, or `-1`. Same shape as `Sorter`.
+- **`LinearSearch`, `BinarySearch`**: the iterative pair.
+- **`RecursiveSearcher`** (abstract, child of `Searcher`), with **`RecursiveBinarySearch`** as its child. It must return the same index as `BinarySearch` for every input, and a test checks that.
+- **`ExperimentManager`**: the only class that knows the whole system. It is given a list of sorters, a list of searchers, sizes, kinds and a seed count, and returns an `ExperimentResult` (a dataclass of rows). Sort rows average comparisons and moves across trials and record the maximum depth over those trials. Search uses the even-valued list 0, 2, ..., 2(n-1), with 200 alternating present and absent targets generated by an RNG seeded with n; absent targets are odd. It never draws or writes files.
+- **`Plotter`**: takes an `ExperimentResult` and writes PNGs. It never runs experiments.
+
+Dependencies point one way: `Plotter` and `ExperimentManager` use the algorithm classes; the algorithm classes use only `Counter`.
+
+## Folder layout
+
+```
+sorting_and_searching/
+  README.md             what this is, in 10 lines, with links
+  PROVENANCE.md         what code or ideas came from where
+  BIG_O.md              Big O explained, and how our graphs match it
+  sidecar/              the build record, kept apart from the product (see sidecar/README.md)
+    DESIGN.md           this file
+    prompts/            every prompt Flo sent Anna, numbered; finished ones move to completed/
+    reports/            Anna's report for each prompt, same number
+    questions/          open questions that need a decision
+    runs/               raw output from experiment and test runs
+  src/sortsearch/
+    __init__.py
+    counter.py
+    dataset.py
+    sorters/   base.py bubble.py insertion.py selection.py recursive.py merge.py quick.py
+    searchers/ base.py linear.py binary.py recursive_searcher.py recursive_binary.py
+    manager.py
+    plotter.py
+  tests/                one test file per module
+  scripts/run_experiment.py     runs everything, writes results and plots
+  docs/                 the public home page (GitHub Pages serves this folder)
+    index.html
+    plots/
+    report.pdf          the LaTeX version, linked from the home page
+  pyproject.toml
+```
+
+Python 3.9 or newer. No third-party packages except `matplotlib` (plots) and `pytest` (tests).
+
+## Expectations: what the graphs should show
+
+Sizes: 10, 20, 40, 80, 160, 320, 640 (largest stays under Python's default recursion limit of 1000, even for quicksort's worst case).
+
+| algorithm      | random input | sorted input | reversed input |
+|----------------|--------------|--------------|----------------|
+| bubble (full)  | nÂ²           | nÂ²           | nÂ²             |
+| insertion      | nÂ²           | n            | nÂ²             |
+| selection      | nÂ²           | nÂ²           | nÂ²             |
+| merge sort     | n log n      | n log n      | n log n        |
+| quick sort     | n log n      | **nÂ²**       | **nÂ²**         |
+
+| search           | cost per lookup |
+|------------------|-----------------|
+| linear           | about 3n/4 on the mixed workload (about n/2 for hits, n for misses) |
+| binary (both)    | log n           |
+
+For each curve, the plot overlays the predicted shape scaled by one constant (fit by least squares at the measured sizes). The picture is: measured dots, a prediction line through them, and a visible miss where theory and practice differ. `BIG_O.md` explains each match and each mismatch in plain language.
+
+## Home page
+
+`docs/index.html`, served by GitHub Pages from `/docs`. It shows, in order: what this is; the class diagram; the comparison plots; the Big O explanation; a short "read the code" tour with links into `src/`; and a link to the LaTeX report. Static HTML and CSS only, no build step, readable on a phone.
+
+## The second lesson: how one agent prompts another
+
+This repo's `sidecar/` folder is part of the display. Flo (the Foreman) wrote each prompt to Anna (the builder) before she built each piece, and Anna's `reports/` entry says what she did. A reader can follow the build from the first prompt to the finished site. Each prompt states **why** the work matters, the **constraints**, and a **falsifiable acceptance test**, because an agent can't ask a hallway question.
+
+## Build order (each step is its own prompt, its own branch, its own report)
+
+1. Core: `Counter`, `DataSet`, all `Sorter` and `Searcher` classes, tests.
+2. Manager and experiment script; results to CSV.
+3. Plotter; Big O overlay curves; `BIG_O.md`.
+4. Home page and LaTeX report.
+5. Read-through for clarity: names, docstrings, dead code.
+
+Flo reviews each branch and merges it. Nothing is pushed straight to `main` by the builder.
+

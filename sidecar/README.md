@@ -3,6 +3,7 @@
 The build record for `sorting_and_searching`. Everything **outside** this folder is the product: the code, the tests, the design, the home page. It reads as if it were simply written well. Everything **inside** is how it was made: who asked for what, what came back, and what was unclear along the way.
 
 - `LEDGER.md` : one page of what each prompt produced, what mattered, and what is still owed. Update it when a prompt finishes.
+- `TASKS.md` : what is still open: prompts, `DESIGN.md` updates, checks, decisions.
 - `DESIGN.md` : the plan and the design. Read it first; it is the truth the reports are measured against.
 - `prompts/` : work orders from Flo (Foreman) to Anna (builder), numbered `NN_slug.md`. Open ones sit here; finished ones move to `prompts/completed/` and stay forever.
 - `reports/` : Anna's result for each prompt, named `NN_slug_report.md` so it **matches its prompt by number and slug**. A prompt with no report has not been done.

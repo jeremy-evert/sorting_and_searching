@@ -37,29 +37,4 @@ These are the choices and findings that changed the design or the numbers. Each 
 
 ## Still owed
 
-Gaps the reports named and nobody has closed yet.
-
-**`DESIGN.md` should say** (from reports 01, 02, 04):
-- The counting conventions: a move is one write, a swap is 2; insertion counts each shift and the placement; merge counts values written while merging.
-- Depth starts at 1, and calls on empty ranges are not counted.
-- `recursive_searcher.py` is its own file in the layout.
-- How search targets are chosen: even-valued list, present targets from a seeded RNG, absent targets odd.
-- Linear search is 3n/4 on the mixed workload.
-- `max_depth` in a sort row is the maximum over trials, not an average.
-
-**Checks not done:**
-- Python 3.9 was never run (everything ran on 3.12), though the code uses nothing newer.
-- Numbers quoted in prose in `BIG_O.md`, the home page and `report.pdf` are not machine-checked; only the tables are.
-- `report.pdf` was not proof-read closely.
-- `pytest` fails to collect `tests/test_plotter.py` unless matplotlib is installed (use `pip install -e ".[test]"`).
-
-**Choices left open:**
-- `sidecar/runs/02_run.log` is not tracked because `.gitignore` ignores `*.log`.
-- CSV averages are raw floats with no rounding rule.
-- The "agrees with theory" tolerance of 5% was chosen in prompt 04, not specified.
-- Quick sort on random input is marked as off-theory (ratio 2.40 against 2.24); the explanation (lower-order terms, five trials) has not been tested with more trials.
-- Bubble and selection coincide on the combined plots, and so do the two binary searches, so those charts show fewer lines than algorithms.
-- On a phone the class diagram scrolls sideways inside its box.
-
-**For a person:**
-- Enable GitHub Pages on `/docs`; the README link returns 404 until then.
+Open work is tracked in [`TASKS.md`](TASKS.md): prompts, `DESIGN.md` updates, checks not done, and decisions for a person.

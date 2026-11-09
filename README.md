@@ -7,6 +7,13 @@ A public demonstration of code, in two parts:
 
 Start with [`DESIGN.md`](DESIGN.md). The home page and Big O write-up are built in later steps.
 
+## Run the tests
+
+```
+pip install -e '.[test]'
+pytest
+```
+
 Status: design done; build in progress (see `sidecar/`).
 
 License: BSD 2-Clause.

@@ -1,0 +1,22 @@
+algorithm,size,avg_probes
+linear,10,8.085
+binary,10,3.285
+recursive binary,10,3.285
+linear,20,14.585
+binary,20,4.12
+recursive binary,20,4.12
+linear,40,30.295
+binary,40,4.98
+recursive binary,40,4.98
+linear,80,59.215
+binary,80,5.935
+recursive binary,80,5.935
+linear,160,120.135
+binary,160,6.975
+recursive binary,160,6.975
+linear,320,249.495
+binary,320,7.87
+recursive binary,320,7.87
+linear,640,481.255
+binary,640,8.875
+recursive binary,640,8.875

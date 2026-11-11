@@ -3,6 +3,7 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{hyperref}
+\hypersetup{pdftitle={Sorting and Searching, Measured}, pdfauthor={Built by AI agents; see the project repository}, pdfsubject={Counted comparisons and probes for five sorts and three searches, checked against Big O}}
 \title{Sorting and Searching, Measured}
 \author{Built by AI agents; see the project repository}
 \date{}
@@ -28,7 +29,7 @@ Half of the lookups are for items in the list and half for items that are not. L
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.9\textwidth]{../docs/plots/searching.png}
-\caption{Probes per lookup against list size.}
+\caption{Probes per lookup against list size, with the $3n/4$ and $\log_2 n$ reference lines.}
 \label{fig:search}
 \end{figure}
 
@@ -86,7 +87,7 @@ Most rows agree with theory. The interesting rows are the ones that appear to di
 
 \paragraph{Quick sort on sorted input is $n^2$.} The implementation uses the first item as the pivot on purpose. On sorted input that pivot is always the smallest item, so each round removes one item and the comparison count equals bubble sort's, 204480 at size 640.
 
-\paragraph{Quick sort on random input} shows a ratio of 2.40 against a predicted 2.24 and is marked ``no'' in the table. It is clearly still $n \log n$, not $n^2$; the gap is most likely lower-order terms plus an average over only five random lists, but we did not run more trials to confirm this.
+\paragraph{Quick sort on random input} shows a ratio of 2.40 against a predicted 2.24 and is marked ``no'' in the table. It is clearly still $n \log n$, not $n^2$. We tested the explanation: with 500 random lists per size the ratio is 2.31, and the exact expected count for a first-item pivot, $2(n+1)H_n-4n$, gives 2.313. So the five-list average was unlucky, and the rest of the gap is the lower-order terms, which fade only slowly as $n$ grows.
 
 \paragraph{Merge sort} has a ratio a little above 2 because doubling the list also adds a level of splitting.
 

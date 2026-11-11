@@ -26,6 +26,9 @@ python scripts/check_site.py         -> OK: six sections present, every image ha
 ```
 I viewed the home page at 390 px wide in headless Chromium: the overview diagram and the list read fine; the family diagrams scroll sideways.
 
+## Addendum (same day): from Monday's CS1 class on this repo
+The CS1 recording shows this repo was the class's example of a public project with a sidecar, and that students will pick a project of their own on Wednesday and ask an agent "is it ready to go public?". Added: `docs/WHAT_IS_A_TEST.md` (real passing and failing pytest runs, linked from `AGENTS.md`, because the class had not seen unit tests), a pre-publish prompt in `sidecar/prompts/README.md`, and in `sidecar/README.md` what each of ledger and tasks owns plus a worked "what belongs in a sidecar" example using DESIGN.md (students debated this live). Their tasks were removed from `TASKS.md`. The class also found the class diagram an "eye chart" and could not scroll it sideways: the overview and list above address that.
+
 ## Public-safety sweep (read-only)
 Current files and the contents of every commit: no home paths, tokens, keys or hostnames. PDF and PNG metadata clean. Author lines: 40 of 62 commits show a machine name (april 25, brandy 13, windows_desktop 2) and 23 show an institutional email address. I did not rewrite history. Decision for a person: `sidecar/questions/07_history_identity.md`.
 

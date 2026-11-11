@@ -12,8 +12,6 @@ Size: S under an hour, M a prompt's worth, L more. Sources: (NN) is a prompt or 
 ## Build record
 
 - **S** LEDGER.md: set the true state of row 06, add a row for 07, and mark 08 reviewed once the SINS decisions below are made. [sins] File: sidecar/LEDGER.md.
-- **S** Say what LEDGER.md and TASKS.md each own in sidecar/README.md, one sentence each: "history goes in the ledger, only pending work goes in tasks". [review] File: sidecar/README.md.
-- **S** In sidecar/README.md, add two lines on what belongs in a sidecar and what does not, using the DESIGN.md placement decision as the worked example. [class] File: sidecar/README.md.
 
 ## Checks not yet done
 
@@ -35,8 +33,6 @@ Size: S under an hour, M a prompt's worth, L more. Sources: (NN) is a prompt or 
 
 - **M** "Find it in the repo": a table mapping each Field Guide v1.0.2 rule to the file or practice that shows it; mark any rule the repo does not yet demonstrate. [review] File: docs/FIELD_GUIDE_MAP.md (new), linked from README.md.
 - **M** "Your turn" prompt: a student adds shell sort through the same loop (hand-worked counts, tests, code, report). [review] Files: sidecar/prompts/NN_your_turn_shell_sort.md (next free number), sidecar/prompts/README.md.
-- **M** Hand-worked "what is a unit test" page: three lines of code, expected value worked out in a comment, one failing and one passing run. [class] File: docs/WHAT_IS_A_TEST.md (new), linked from AGENTS.md.
-- **S** "Pre-publish checklist" prompt a student can give an agent about their own project, with the public-repo rule from AGENTS.md as line one. [class] File: sidecar/prompts/README.md.
 
 ## Decisions for a person
 

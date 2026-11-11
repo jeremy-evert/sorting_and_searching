@@ -35,6 +35,8 @@ Everything here is under version control and pushed to GitHub, so almost any mis
 - Classes do one job: algorithms don't print, the manager doesn't draw, the plotter doesn't run experiments.
 
 ## Tests that mean something
+New to tests? Read [`docs/WHAT_IS_A_TEST.md`](docs/WHAT_IS_A_TEST.md) first: a three-line example, with a passing and a failing run.
+
 - A test that only copies what the code printed proves nothing. Work the expected value out **by hand or from the algorithm's definition**, write the reasoning in a comment, then assert it.
 - If a test and the code disagree, **stop and report the disagreement.** Do not edit the test until it passes. The disagreement is often the most useful thing you found.
 - Say "tests pass" only if you ran them in this session. Paste the command and the summary line in your report.

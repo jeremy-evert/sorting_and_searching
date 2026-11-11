@@ -29,7 +29,7 @@ Everything here is under version control and pushed to GitHub, so almost any mis
 ## Code rules
 - Python 3.9 or newer. Standard library for the classes; `pytest` for tests; `matplotlib` only for plots.
 - **Count operations, not seconds.** Counts are exact and repeatable; timings are noise. Fixed seeds everywhere.
-- No global variables. State is passed in (`Counter`, `DataSet`).
+- No mutable module-level state. State is passed in (`Counter`, `DataSet`); constants are fine.
 - Every class has a docstring of one or two plain sentences, and names a beginner can read. Prefer the obvious version to the clever one.
 - Write files with LF line endings (`newline=""`, `lineterminator="\n"`). A mismatch here once broke a project's own tests.
 - Classes do one job: algorithms don't print, the manager doesn't draw, the plotter doesn't run experiments.

@@ -1,6 +1,10 @@
 import math
 from pathlib import Path
 
+import pytest
+
+pytest.importorskip("matplotlib")
+
 from sortsearch.plotter import Plotter, disagreement_flags, fit_constant
 from sortsearch.results_io import read_search_rows, read_sort_rows
 

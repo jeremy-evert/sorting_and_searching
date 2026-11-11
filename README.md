@@ -28,7 +28,7 @@ The counts come from fixed seeds and count operations, not seconds, so a fresh r
 - [`BIG_O.md`](BIG_O.md): Big O explained, checked against our measured numbers.
 - [`sidecar/LEDGER.md`](sidecar/LEDGER.md): what each prompt produced. Open work is in [`sidecar/TASKS.md`](sidecar/TASKS.md).
 - [`AGENTS.md`](AGENTS.md): the working rules for any agent or person in this repo.
-- [`docs/Deciding_with_AI_Field_Guide_v1.0.3.pdf`](docs/Deciding_with_AI_Field_Guide_v1.0.3.pdf): a printable four-page guide to working with an AI assistant (the same guide is on the [Deciding with AI page](https://jeremy-evert.github.io/swosu-computing/deciding-with-ai/)). This repo is a worked example of its habits: define done, run it yourself, save points, say how you used it.
+- [`docs/Deciding_with_AI_Field_Guide_v1.0.4.pdf`](docs/Deciding_with_AI_Field_Guide_v1.0.4.pdf): a printable four-page guide to working with an AI assistant (the same guide is on the [Deciding with AI page](https://jeremy-evert.github.io/swosu-computing/deciding-with-ai/)). This repo is a worked example of its habits: define done, run it yourself, save points, say how you used it.
 
 Every report says what it did not finish. For an example, see [report 04](sidecar/reports/04_big_o_report.md), where a number in the prose was caught and corrected against the data.
 

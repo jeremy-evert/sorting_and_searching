@@ -36,7 +36,7 @@ Current files and the contents of every commit: no home paths, tokens, keys or h
 - **Teaching items** (shell-sort "your turn" prompt, unit-test page, Field Guide map, pre-publish checklist): new content, not repairs to a promise; left in `TASKS.md`.
 - **Decisions list** (CSV rounding, overlapping lines, the RecursiveSorter question): unchanged.
 - Quick sort's own 'Try it' number (2.31 with a middle pivot) is quoted from earlier work and not machine-checked.
-- Housekeeping: the removal of the old root PDF landed inside commit `507f58f` rather than its own commit; an error in my staging, harmless.
+- Housekeeping: the removal of the old root PDF landed inside commit `c4328f5` rather than its own commit; an error in my staging, harmless.
 
 ## Final commit
 c43bb4c on `anna/09-showcase-fixes`.

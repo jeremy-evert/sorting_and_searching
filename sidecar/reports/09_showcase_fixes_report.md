@@ -1,6 +1,6 @@
 # Report 09: make the showcase keep its promises
 
-**Prompt:** `sidecar/prompts/09_showcase_fixes.md` **Branch:** `anna/09-showcase-fixes` (off `origin/main` at 11d62b6) **Terminal state:** HUMAN_GATE (two decisions below). Not self-accepted.
+**Prompt:** `sidecar/prompts/09_showcase_fixes.md` **Branch:** `anna/09-showcase-fixes` (off `origin/main` at 11d62b6) **Terminal state:** HUMAN_GATE (merge, history rewrite and branch deletion are a person's decision). Not self-accepted.
 
 ## What changed
 - **One command makes the results and plots.** `scripts/regenerate.py` runs the experiment, writes the CSVs, draws all 19 plots. `--check` rebuilds in a temporary folder and compares the CSVs byte for byte. `tests/test_results_reproducible.py` does the same inside pytest.
@@ -33,7 +33,7 @@ The CS1 recording shows this repo was the class's example of a public project wi
 Current files and the contents of every commit: no home paths, tokens, keys or hostnames. PDF and PNG metadata clean. Author lines: 40 of 62 commits show a machine name (april 25, brandy 13, windows_desktop 2) and 23 show an institutional email address. I did not rewrite history. Decision for a person: `sidecar/questions/07_history_identity.md`.
 
 ## Not done, and why
-- **CI has not run on GitHub yet.** I could only run Python 3.12 here. 3.9 compatibility is untested; I found no 3.10-only syntax by search. Check the first run.
+- **CI (resolved).** The first GitHub run failed: Python 3.9 is not on the newest Ubuntu image, and fail-fast cancelled 3.11. Fixed by pinning `ubuntu-24.04` and `fail-fast: false`. The rerun passed on 3.9 and 3.11, including `regenerate.py --check`, so the CSVs also match byte for byte on those versions.
 - **History rewrite** (author lines) and **deleting merged remote branches**: AGENTS.md says ask first.
 - **Closing out prompts 06 and 07 and the ledger rows for them:** that is the reviewer's call.
 - **Teaching items** (shell-sort "your turn" prompt, unit-test page, Field Guide map, pre-publish checklist): new content, not repairs to a promise; left in `TASKS.md`.

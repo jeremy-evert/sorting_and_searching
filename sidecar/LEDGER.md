@@ -15,7 +15,7 @@ Update it when a prompt finishes: add a row. Open work is in [`TASKS.md`](TASKS.
 | 05 | `home_page` | `docs/index.html`, `check_site.py`, `report/report.tex`, `docs/report.pdf` | link and section check; screenshots at 400 and 1200 px in `runs/` | merged |
 | 06_a | `design_to_sidecar` | `DESIGN.md` moved into `sidecar/`, `LEDGER.md` and `TASKS.md` added | `82 passed`; `check_site.py` exits 0; `main` equals `origin/main` | merged |
 | 06 | `clarity_pass` | read-through for names, docstrings, dead code | none yet | open |
-| 09 | `showcase_fixes` | `regenerate.py`, 3n/4 search reference, permutation check in `Sorter.sort`, prose-number check, quick-sort 500-list test, accurate alt text, split class diagram, CI workflow, report metadata | `90 passed` locally on Python 3.12; `regenerate.py --check` and both checkers exit 0; CI not yet run on GitHub | awaiting review |
+| 09 | `showcase_fixes` | `regenerate.py`, 3n/4 search reference, permutation check in `Sorter.sort`, prose-number check, quick-sort 500-list test, accurate alt text, split class diagram, CI workflow, report metadata | `90 passed` locally on Python 3.12; `regenerate.py --check` and both checkers exit 0; CI passes on GitHub for Python 3.9 and 3.11 | awaiting review |
 | 08 | `repo_grievances` | candid review in `SINS.md` | observations and unverified concerns labeled in the document | awaiting review |
 
 ## What mattered

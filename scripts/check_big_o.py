@@ -1,9 +1,15 @@
-"""Check the numbers quoted in BIG_O.md against the result CSVs.
+"""Check the numbers quoted in BIG_O.md, the home page and the report source against the result CSVs.
 
 Usage (from the repository root):  python scripts/check_big_o.py [BIG_O.md] [results_dir]
 
-Prints both tables. Exits 1 if either table in BIG_O.md differs from the
-tables recomputed here, 0 if they match.
+Two checks run:
+  1. The two marked tables in BIG_O.md are recomputed from the CSVs and
+     compared line by line.
+  2. A fixed list of numbers quoted in sentences (in BIG_O.md, docs/index.html
+     and report/report.tex) is recomputed from the CSVs and each sentence is
+     looked up in its file. Numbers in other sentences are not checked.
+When BIG_O.md is given explicitly, only that file's sentences are checked.
+Exits 1 if anything differs, 0 if everything matches.
 """
 
 import csv
@@ -90,6 +96,55 @@ def search_table(results_dir):
     return lines
 
 
+def prose_claims(results_dir):
+    """Return {file: [sentence fragments]} for numbers quoted in prose, built from the data."""
+    sorts = {}
+    for row in read_rows(Path(results_dir) / "sort_counts.csv"):
+        sorts[(row["kind"], row["algorithm"], int(row["size"]))] = float(row["avg_comparisons"])
+    probes = {}
+    for row in read_rows(Path(results_dir) / "search_counts.csv"):
+        probes[(row["algorithm"], int(row["size"]))] = float(row["avg_probes"])
+    quick_sorted_big = int(sorts[("sorted", "quick", BIG)])
+    insertion_small = int(sorts[("sorted", "insertion", SMALL)])
+    insertion_big = int(sorts[("sorted", "insertion", BIG)])
+    quick_ratio = sorts[("random", "quick", BIG)] / sorts[("random", "quick", SMALL)]
+    linear_big = probes[("linear", BIG)]
+    binary_small, binary_big = probes[("binary", SMALL)], probes[("binary", BIG)]
+    return {
+        "BIG_O.md": [
+            f"{insertion_small} at size 320, {insertion_big} at size 640",
+            f"{quick_sorted_big} at size 640",
+            f"Measured {linear_big:.2f} against {0.75 * BIG:.0f} predicted at size 640",
+            f"({binary_small:.2f} to {binary_big:.2f})",
+            f"ratio {quick_ratio:.2f} vs 2.24",
+        ],
+        "docs/index.html": [
+            f"the same {quick_sorted_big} comparisons as bubble sort at size 640",
+            f"{insertion_big} comparisons at size 640",
+            f"about {round(linear_big)} probes at size 640",
+        ],
+        "report/report.tex": [
+            f"{insertion_big} comparisons at size 640",
+            f"{quick_sorted_big} at size 640",
+            f"ratio of {quick_ratio:.2f} against a predicted 2.24",
+        ],
+    }
+
+
+def prose_problems(results_dir, only_doc=None):
+    """Return problem lines for quoted sentences that are missing from their files."""
+    problems = []
+    for name, fragments in prose_claims(results_dir).items():
+        if only_doc is not None and name != only_doc.name:
+            continue
+        path = only_doc if only_doc is not None else ROOT / name
+        text = path.read_text(encoding="utf-8")
+        for fragment in fragments:
+            if fragment not in text:
+                problems.append(f"{name}: expected the data's wording but did not find: {fragment!r}")
+    return problems
+
+
 def block(text, name):
     """Return the lines between <!-- name:start --> and <!-- name:end -->."""
     lines = text.split("\n")
@@ -123,7 +178,12 @@ def main(argv):
             if line not in expected:
                 print(f"QUOTED but does not match the data: {line}")
                 problems += 1
-    print("OK: every quoted number matches the data." if problems == 0
+    explicit = len(argv) > 1
+    for line in prose_problems(results_dir, doc if explicit else None):
+        print(line)
+        problems += 1
+    print("OK: both marked tables, and the listed numbers quoted in sentences, match the data. "
+          "Other numbers in the prose are not checked." if problems == 0
           else f"FAILED: {problems} mismatched line(s).")
     return 0 if problems == 0 else 1
 

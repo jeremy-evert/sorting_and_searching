@@ -7,7 +7,8 @@ class Sorter(ABC):
     """Template for a sorting algorithm.
 
     The public method sort() does the steps that must always happen: copy the
-    input, run the algorithm, and check the answer. A child class only writes
+    input, run the algorithm, and check the answer is in order and holds
+    exactly the values it was given. A child class only writes
     _sort(), the algorithm itself.
 
     Counting rules shared by all sorters:
@@ -24,6 +25,8 @@ class Sorter(ABC):
         self._sort(items, counter)
         if any(items[i] > items[i + 1] for i in range(len(items) - 1)):
             raise RuntimeError(f"{self.name} produced an unsorted result")
+        if sorted(items) != sorted(values):
+            raise RuntimeError(f"{self.name} changed the values it was given")
         return items
 
     @abstractmethod

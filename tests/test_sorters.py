@@ -152,3 +152,32 @@ def test_random_seeded_agreement_with_builtin_sorted():
         data = [rng.randint(0, 20) for _ in range(rng.randint(0, 40))]
         for cls in ALL:
             assert cls().sort(data, Counter()) == sorted(data)
+
+
+class _DropsAValue(Sorter):
+    """A deliberately broken sorter: its output is in order but one value is missing."""
+
+    name = "drops a value"
+
+    def _sort(self, items, counter):
+        items.sort()
+        items.pop()
+
+
+class _InventsAValue(Sorter):
+    """A deliberately broken sorter: its output is in order but one value is replaced."""
+
+    name = "invents a value"
+
+    def _sort(self, items, counter):
+        items.sort()
+        items[0] = items[0] - 1
+
+
+@pytest.mark.parametrize("broken", [_DropsAValue, _InventsAValue])
+def test_sort_rejects_output_that_is_sorted_but_not_the_same_values(broken):
+    # [3, 1, 2] sorts to [1, 2, 3]. Each broken sorter returns an ordered list
+    # ([1, 2] or [0, 2, 3]) that is not a rearrangement of the input, so sort()
+    # must raise even though the order check alone would pass.
+    with pytest.raises(RuntimeError, match="values"):
+        broken().sort([3, 1, 2], Counter())

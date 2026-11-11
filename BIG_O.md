@@ -13,7 +13,7 @@ Take a list of items and do some job on it. We call the number of items **n**. N
 | n log n | a little **over 2x** (about 2.2x at our sizes) | merge sort |
 | n squared (written n^2) | **4x** | comparing every name with every other name |
 
-That is all Big O is: a statement about the *ratio*, not about the exact count. When someone says "bubble sort is n squared", they mean "give it a list twice as long and expect about four times as many comparisons." It does not say how many seconds, or what the exact count is. We can check the claim: run the sort at one size, run it at double the size, divide.
+Strictly, Big O is an **upper bound on growth**: "the work is at most a constant times n squared once n is large enough." It says nothing about the exact count or the number of seconds. The doubling ratio is how we **illustrate** a bound from two measured sizes; it is not how a bound is proved. When someone says "bubble sort is n squared", the doubling question gives the practical meaning: give it a list twice as long and expect about four times as many comparisons. We can check that: run the sort at one size, run it at double the size, divide.
 
 Our biggest two sizes are 320 and 640, exactly double. So **comparisons at 640 divided by comparisons at 320** is the measured doubling ratio. The prediction for that ratio is 2 for n, 4 for n^2, and about 2.24 for n log n (because 640 x log2(640) divided by 320 x log2(320) is 2.24).
 
@@ -21,9 +21,16 @@ Our biggest two sizes are 320 and 640, exactly double. So **comparisons at 640 d
 
 The code counts comparisons, moves and probes, not seconds. Counts are exact and the same on every machine, and a clock is not. See [`sidecar/DESIGN.md`](sidecar/DESIGN.md). The tables below use **comparisons** for sorting and **probes** (elements looked at) for searching. Every number is an average over repeated runs with fixed seeds, produced by `scripts/run_experiment.py`.
 
+**What exactly is counted**
+
+- A **comparison** is one decision about two values. A search probe makes one three-way decision (equal, smaller or larger) and counts as one comparison and one probe.
+- Merge sort's **moves** count each value written while merging. The final copy back into the caller's list is not counted again.
+- The check that a sort's result is in order and holds the same values is **not** counted.
+- Random inputs are averaged over 5 trials with fixed seeds (trial t at size n uses seed 1000n + t). Half of the search lookups are hits and half are misses.
+
 ## Sorting: prediction vs measurement
 
-The "agrees" column is "yes" when the measured ratio is within 5% of the predicted ratio. The plots (planned names `plots/sorting_random.png`, `plots/sorting_sorted.png`, `plots/sorting_reversed.png`) show the same data as curves.
+The "agrees" column is "yes" when the measured ratio is within 5% of the predicted ratio. The plots ([`docs/plots/sorting_random.png`](docs/plots/sorting_random.png), [`sorting_sorted.png`](docs/plots/sorting_sorted.png) and [`sorting_reversed.png`](docs/plots/sorting_reversed.png), plus one `bigo_*` plot per sorter and input) show the same data as curves.
 
 <!-- sort-table:start -->
 | input | sorter | predicted | predicted ratio | comparisons at 320 | comparisons at 640 | measured ratio | agrees |
@@ -49,13 +56,13 @@ The "agrees" column is "yes" when the measured ratio is within 5% of the predict
 
 - **Insertion sort on sorted input is linear, not squared.** Each new item is compared once with its left neighbour, finds it is already in place, and stops. n - 1 comparisons: 319 at size 320, 639 at size 640, ratio 2.00. On random and reversed input it must slide items a long way, so it is n^2 there. Same algorithm, different input, different growth.
 - **Quick sort on sorted (and reversed) input is n^2, not n log n.** Our quick sort always picks the **first** item as the pivot. On sorted input the first item is the smallest, so the "split" puts nothing on one side and everything else on the other, every time. The list shrinks by one per round instead of in half. That gives n(n-1)/2 comparisons, exactly the same as bubble sort: 204480 at size 640. This is deliberate; see `sidecar/DESIGN.md`.
-- **Quick sort on random input is flagged "NO" (ratio 2.40 vs 2.24).** It is still clearly n log n, not n^2 (that would be 4.0). The extra comes from two things: the ratio of a "n log n plus a smaller linear term" curve is not exactly 2.24 at small sizes, and each point is only an average of 5 random lists, so a few unlucky pivots move it. We did not smooth this away.
+- **Quick sort on random input is flagged "NO" (ratio 2.40 vs 2.24).** It is still clearly n log n, not n^2 (that would be 4.0). Two things are at work, and we tested both. First, five random lists are few: rerunning with 500 lists per size gives 2793.3 comparisons at size 320 and 6441.0 at size 640, a ratio of **2.31**, so most of the 2.40 was luck of the draw. Second, the true ratio is not 2.24 at these sizes: the exact expected number of comparisons for a first-item pivot on random input is 2(n+1)H(n) - 4n (H(n) is the harmonic number, about ln n), which is 2794.8 at 320 and 6464.6 at 640, a ratio of **2.313**. The 500-list measurement matches it. So the ratio drifts down toward 2 only slowly; 2.24 is the right prediction for large n, not for 640. The table keeps the 5-trial numbers and its "NO"; `tests/test_quick_sort_expectation.py` checks the 500-list claim.
 - **Merge sort's ratio is slightly above 2.** Doubling the list doubles the items to merge, and also adds one more level of splitting, so the ratio lands a bit over 2 (2.23 to 2.29 here, against the predicted 2.24). That "a little over 2" is what n log n looks like.
 - **Bubble and selection sort do the same number of comparisons on every input.** Neither stops early, so sorted, reversed and random lists all cost n(n-1)/2 comparisons (204480 at size 640). Selection sort still makes far fewer *moves*; this table counts only comparisons.
 
 ## Searching: prediction vs measurement
 
-Searching counts **probes**, the elements looked at. Half of our lookups are for items that are in the list and half for items that are not. The plot is planned as `plots/searching.png`.
+Searching counts **probes**, the elements looked at. Half of our lookups are for items that are in the list and half for items that are not. The plot is [`docs/plots/searching.png`](docs/plots/searching.png).
 
 <!-- search-table:start -->
 | searcher | predicted | predicted at 320 | predicted at 640 | probes at 320 | probes at 640 |

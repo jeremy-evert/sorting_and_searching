@@ -94,7 +94,8 @@ def main(argv):
     if problems:
         print(f"FAILED: {len(problems)} problem(s).")
         return 1
-    print("OK: six sections present, every image and local link resolves.")
+    print("OK: six sections present, every image has alt text, every local image and link resolves. "
+          "Links to other sites were not fetched, and alt text was not checked for accuracy.")
     return 0
 
 

@@ -5,7 +5,7 @@ import pytest
 
 pytest.importorskip("matplotlib")
 
-from sortsearch.plotter import Plotter, disagreement_flags, fit_constant
+from sortsearch.plotter import Plotter, disagreement_flags, fit_constant, linear_reference
 from sortsearch.results_io import read_search_rows, read_sort_rows
 
 
@@ -64,3 +64,9 @@ def test_script_writes_all_nineteen_pngs(tmp_path):
     )
     assert "Wrote 19 PNGs" in result.stdout
     assert len(list(tmp_path.glob("*.png"))) == 19
+
+
+def test_linear_reference_is_three_quarters_of_n():
+    # A hit looks at about n/2 elements and a miss looks at all n. With half
+    # hits and half misses the average is (n/2 + n) / 2 = 3n/4.
+    assert linear_reference([320, 640]) == [240.0, 480.0]

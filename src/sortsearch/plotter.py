@@ -71,6 +71,15 @@ def disagreement_flags(measured, predicted, threshold=0.25):
     return flags
 
 
+def linear_reference(sizes):
+    """Return the expected probes per lookup for linear search on our workload.
+
+    Half the lookups hit (about n/2 probes) and half miss (always n probes),
+    so the average is 3n/4.
+    """
+    return [0.75 * size for size in sizes]
+
+
 class Plotter:
     """Plot supplied result rows without running experiments or reading files."""
 
@@ -83,7 +92,7 @@ class Plotter:
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
         figure.tight_layout()
-        figure.savefig(path, format="png", dpi=150)
+        figure.savefig(path, format="png", dpi=150, metadata={"Software": None})
         plt.close(figure)
 
     @staticmethod
@@ -164,7 +173,7 @@ class Plotter:
         self._finish(figure, path)
 
     def plot_searching(self, path):
-        """Write probes-per-lookup plots and n/2 and log2 n references."""
+        """Write probes-per-lookup plots with 3n/4 and log2 n reference lines."""
         rows_by_algorithm = defaultdict(list)
         for row in self.search_rows:
             rows_by_algorithm[row.algorithm].append(row)
@@ -180,8 +189,8 @@ class Plotter:
                           markerfacecolor=("white" if algorithm == "binary" else None),
                           label=SEARCH_NAMES[algorithm])
         size_values = np.asarray(sizes, dtype=float)
-        axis.plot(size_values, size_values / 2, color="#555555", linestyle="--",
-                  label="n/2 reference")
+        axis.plot(size_values, linear_reference(size_values), color="#555555",
+                  linestyle="--", label="3n/4 reference (half the lookups miss)")
         axis.plot(size_values, np.log2(size_values), color="#999999", linestyle=":",
                   label="log2 n reference")
         axis.set_xlabel("input size n")

@@ -23,3 +23,29 @@ Anna cannot lean over and ask a question, so each prompt answers the questions u
 ## How to read it
 
 Read `01` first, then its report, then `02`. Notice what the prompts leave out as well as what they say, and how each report's findings shape the next prompt.
+
+## A prompt you can give an agent about your own project: "is it ready to go public?"
+
+Copy this, fill in the project name, and give it to an AI assistant that can read your repository. Line one is a rule, not a suggestion.
+
+```
+My project is called <NAME>. I plan to make its repository public.
+
+Rule 1: anything I push is visible at once and may be copied or cached even if I
+delete it later. Never commit secrets, passwords, tokens or keys, private data
+about other people, personal file paths, or computer names.
+
+Read the whole repository, then give me a numbered task list of what to do
+before it goes public. Check, and say what you actually checked:
+1. Secrets, passwords, tokens, personal paths or computer names, in the files
+   and in the git history.
+2. Does the README say what this is, how to run it, and how to run the tests?
+3. Do the tests run and pass? (Run them and show me the output.)
+4. Is there a license, and is the folder layout something a stranger can follow?
+5. Does everything the README promises actually work?
+Do not fix anything yet. Sort the list by how much it matters, mark each item
+S (under an hour), M or L, and tell me the one thing that would hurt most if it
+were wrong.
+```
+
+Then do the list one item at a time, commit after each, and run the tests before you say you are done.

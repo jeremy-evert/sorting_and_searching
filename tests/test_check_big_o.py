@@ -38,3 +38,13 @@ def test_missing_table_fails(tmp_path):
     copy = tmp_path / "BIG_O.md"
     copy.write_text("# nothing here\n", encoding="utf-8")
     assert run(copy) == 1
+
+
+def test_changed_prose_number_fails(tmp_path):
+    # "639 comparisons at size 640" is quoted in a sentence, not a table; the
+    # prose check must notice when it no longer matches the data.
+    text = DOC.read_text(encoding="utf-8")
+    assert "639 at size 640" in text
+    copy = tmp_path / "BIG_O.md"
+    copy.write_text(text.replace("639 at size 640", "640 at size 640", 1), encoding="utf-8")
+    assert run(copy) == 1
